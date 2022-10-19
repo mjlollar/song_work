@@ -1,0 +1,215 @@
+# this file must be valid python and bash code, hence the .pysh extension
+
+# SongExplorer must be restarted for changes to take effect
+
+# where to save the GUI text boxes
+state_dir=""
+
+# sampling rate of and number of channels in the WAV files
+audio_tic_rate=10000
+audio_nchannels=1
+
+# sampling rate and frame size of the AVI, MP4, or MOV files (if any)
+video_frame_rate=0
+video_frame_width=0
+video_frame_height=0
+video_channels=0  # comma-separated list of which colors to use
+video_bkg_frames=0  # how many frames to use when computing median background image to subtract
+video_findfile_plugin="same-basename"  # given a directory and a WAV file, return the corresponding video file
+
+# URL of the 'server' computer
+server_username=""
+server_ipaddr=""
+
+# how to dispatch jobs to the 'cluster'
+cluster_username=""
+cluster_ipaddr=""
+cluster_cmd=""
+cluster_logfile_flag=""
+
+# GUI
+gui_nlabels=7
+gui_gui_width_pix=1250
+#gui_cluster_dot_palette="Category10_10"
+# https://graphicdesign.stackexchange.com/questions/3682/where-can-i-find-a-large-palette-set-of-contrasting-colors-for-coloring-many-d
+gui_cluster_dot_palette="('#0075dc','#993f00','#4c005c','#191919','#005c31','#2bce48','#ffcc99','#808080','#94ffb5','#8f7c00','#9dcc00','#c20088','#003380','#ffa405','#ffa8bb','#426600','#ff0010','#5ef1f2','#00998f','#e0ff66','#740aff','#990000','#ffff80','#ffff00','#ff5005')"
+gui_cluster_circle_color="#f0a3ff"
+gui_snippets_colormap="Viridis256"
+gui_snippets_width_ms=40
+gui_snippets_nx=10
+gui_snippets_ny=5
+gui_snippets_waveform=1   # comma-separated list of channels to display, or () if none
+gui_snippets_spectrogram=()   # comma-separated list of channels to display, or () if none
+gui_context_width_ms=400
+gui_context_offset_ms=0
+gui_context_waveform=1   # comma-separated list of channels to display, or () if none
+gui_context_waveform_height_pix=150
+gui_context_spectrogram=1   # comma-separated list of channels to display, or () if none
+gui_context_spectrogram_height_pix=150
+gui_context_spectrogram_units="kHz" # one of mHz, Hz, kHz, or MHz
+gui_context_probability_height_pix=75
+gui_context_undo_proximity_pix=3
+gui_context_doubleclick_plugin="point"
+gui_spectrogram_colormap="Viridis256"
+gui_spectrogram_window="hann"
+gui_spectrogram_length_ms=10
+gui_spectrogram_overlap=0.5
+gui_spectrogram_low_hz=0
+gui_spectrogram_high_hz=1250
+
+# neural network architecture to use
+architecture_plugin="convolutional"
+
+# on what computer to do the computation
+default_where="local"
+
+# action buttons
+
+detect_where=default_where
+detect_ncpu_cores=-1
+detect_ngpu_cards=-1
+detect_ngigabytes_memory=-1
+detect_cluster_flags=""
+detect_plugin="time-freq-threshold"
+
+misses_where=default_where
+misses_ncpu_cores=-1
+misses_ngpu_cards=-1
+misses_ngigabytes_memory=-1
+misses_cluster_flags=""
+
+train_gpu=0
+train_where=default_where
+train_gpu_ncpu_cores=-1
+train_gpu_ngpu_cards=-1
+train_gpu_ngigabytes_memory=-1
+train_gpu_cluster_flags=""
+train_cpu_ncpu_cores=-1
+train_cpu_ngpu_cards=-1
+train_cpu_ngigabytes_memory=-1
+train_cpu_cluster_flags=""
+
+generalize_gpu=0
+generalize_where=default_where
+generalize_gpu_ncpu_cores=-1
+generalize_gpu_ngpu_cards=-1
+generalize_gpu_ngigabytes_memory=-1
+generalize_gpu_cluster_flags=""
+generalize_cpu_ncpu_cores=-1
+generalize_cpu_ngpu_cards=-1
+generalize_cpu_ngigabytes_memory=-1
+generalize_cpu_cluster_flags=""
+
+xvalidate_gpu=0
+xvalidate_where=default_where
+xvalidate_gpu_ncpu_cores=-1
+xvalidate_gpu_ngpu_cards=-1
+xvalidate_gpu_ngigabytes_memory=-1
+xvalidate_gpu_cluster_flags=""
+xvalidate_cpu_ncpu_cores=-1
+xvalidate_cpu_ngpu_cards=-1
+xvalidate_cpu_ngigabytes_memory=-1
+xvalidate_cpu_cluster_flags=""
+
+mistakes_where=default_where
+mistakes_ncpu_cores=-1
+mistakes_ngpu_cards=-1
+mistakes_ngigabytes_memory=-1
+mistakes_cluster_flags=""
+
+activations_gpu=0
+activations_where=default_where
+activations_gpu_ncpu_cores=-1
+activations_gpu_ngpu_cards=-1
+activations_gpu_ngigabytes_memory=-1
+activations_gpu_cluster_flags=""
+activations_cpu_ncpu_cores=-1
+activations_cpu_ngpu_cards=-1
+activations_cpu_ngigabytes_memory=-1
+activations_cpu_cluster_flags=""
+
+cluster_where=default_where
+cluster_ncpu_cores=-1
+cluster_ngpu_cards=-1
+cluster_ngigabytes_memory=-1
+cluster_cluster_flags=""
+
+accuracy_where=default_where
+accuracy_ncpu_cores=-1
+accuracy_ngpu_cards=-1
+accuracy_ngigabytes_memory=-1
+accuracy_cluster_flags=""
+
+freeze_where=default_where
+freeze_ncpu_cores=-1
+freeze_ngpu_cards=-1
+freeze_ngigabytes_memory=-1
+freeze_cluster_flags=""
+
+ensemble_where=default_where
+ensemble_ncpu_cores=-1
+ensemble_ngpu_cards=-1
+ensemble_ngigabytes_memory=-1
+ensemble_cluster_flags=""
+
+classify_gpu=0
+classify_where=default_where
+classify_gpu_ncpu_cores=-1
+classify_gpu_ngpu_cards=-1
+classify_gpu_ngigabytes_memory=-1
+classify_gpu_cluster_flags=""
+classify_cpu_ncpu_cores=-1
+classify_cpu_ngpu_cards=-1
+classify_cpu_ngigabytes_memory=-1
+classify_cpu_cluster_flags=""
+
+ethogram_where=default_where
+ethogram_ncpu_cores=-1
+ethogram_ngpu_cards=-1
+ethogram_ngigabytes_memory=-1
+ethogram_cluster_flags=""
+
+compare_where=default_where
+compare_ncpu_cores=-1
+compare_ngpu_cards=-1
+compare_ngigabytes_memory=-1
+compare_cluster_flags=""
+
+congruence_where=default_where
+congruence_ncpu_cores=-1
+congruence_ngpu_cards=-1
+congruence_ngigabytes_memory=-1
+congruence_cluster_flags=""
+
+# simultaneously train multiple models on one GPU
+models_per_job=1
+
+# use incremental PCA to conserve memory when clustering if >0
+pca_batch_size=0 
+
+# parallelizing is faster but requires more RAM.
+# use -1 to automatically use all CPU cores, 0 to not parallelize at all, 
+# or a positive integer to manually specify how many CPU cores to use.
+cluster_parallelize=-1
+accuracy_parallelize=-1
+congruence_parallelize=-1
+
+# how many points to use for the precision-recall, sensitivity-specificity, and congruence curves
+nprobabilities=20
+
+# used by freeze and classify to specify how many output time tics to process in parallel.
+# must be greater than one.
+classify_parallelize=2
+
+# used by train, generalize, xvalidate, and activations
+data_loader_maxprocs=0  # 0 = num CPU cores
+data_loader_queuesize=1  # 0 = infinite
+
+
+# what follows is for developers only
+
+# the location of writable code files
+source_path=""
+
+# a boolean to make the output (more) reproducible
+deterministic=0
