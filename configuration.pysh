@@ -6,7 +6,7 @@
 state_dir=""
 
 # sampling rate of and number of channels in the WAV files
-audio_tic_rate=10000
+audio_tic_rate=5000
 audio_nchannels=1
 
 # sampling rate and frame size of the AVI, MP4, or MOV files (if any)
@@ -199,7 +199,7 @@ nprobabilities=20
 
 # used by freeze and classify to specify how many output time tics to process in parallel.
 # must be greater than one.
-classify_parallelize=2
+classify_parallelize=8192
 
 # used by train, generalize, xvalidate, and activations
 data_loader_maxprocs=0  # 0 = num CPU cores
