@@ -19,8 +19,8 @@ for wavfile in $WavFiles ; do
 		--model=/home/matt/songexplorer_work/train_1r-20221014T200134Z-001/train_1r/frozen-graph.ckpt-16000.pb \
 		--model_labels=/home/matt/songexplorer_work/train_1r-20221014T200134Z-001/train_1r/labels.txt \
 		--wav=/home/matt/songexplorer_work/$WAV_dir/$wavfile \
-		--parallelize=2 \
-		--audio_tic_rate=10000 \
+		--parallelize=8192 \
+		--audio_tic_rate=5000 \
 		--audio_nchannels=1 \
 		--video_findfile=same-basename \
 		--video_bkg_frames=0 \
