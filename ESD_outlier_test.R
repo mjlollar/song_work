@@ -5,7 +5,7 @@ library("viridis")
 library("tidyverse")
 
 setwd(<YOUR_PATH>)
-df_data <- read.csv(<YOUR_SONG_DATA_CSV>', header=T, as.is=T)
+df_data <- read.csv(<YOUR_SONG_DATA_CSV>, header=T, as.is=T)
 
 #### RUN ESD test on each genotype in genotype colum, will test up to 10 outliers.
 #### Prints behavior followed by genotype if a significant number of outliers (>=1) detected.
