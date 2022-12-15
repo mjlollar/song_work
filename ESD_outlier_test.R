@@ -21,7 +21,7 @@ for (calls in colnames(df_data[4:length(df_data)])){    ## Script assumes first 
   print(calls)
   for (x in genos) {
     y <- df_data[which(df_data$genotype==x), calls]
-    ######ONLINE CODE BLOCK###### (Lines 25-57 adapted from: https://www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm)
+    ######ONLINE CODE BLOCK###### (Lines 25-57 copied from: https://www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm)
     ## Generate normal probability plot.
     #qqnorm(y) ## Uncomment to produce ggplots for each genotype
     
