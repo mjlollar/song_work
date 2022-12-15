@@ -10,11 +10,6 @@ df_data$population <- as.factor(df_data$population) #column listing population (
 df_data$genotype <- as.factor(df_data$genotype) #Column listing line number
 
 ### TIP: cnrl+F and 'replace all' for 'SinesPerMinNew' with column header of choice to quickly change between measures
-aggregate(df_data$SinesPerMinNew, list(df_data$population), FUN='median')
-ind_median <- aggregate(df_data$SinesPerMinNew, list(df_data$genotype), FUN='median')
-aggregate(df_data$SinesPerMinNew, list(df_data$population), FUN='mean')
-ind_SinesPerMinNew <- aggregate(df_data$SinesPerMinNew, list(df_data$genotype), FUN='mean')
-
 #### RUN ESD test on each genotype in genotype colum, will test up to 11 outliers.
 #### Prints genotype followed by a sequential tally of outlier number where test statistic > critical value
 #### Highest number used as the number of outliers to remove for that genotype
