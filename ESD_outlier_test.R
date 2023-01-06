@@ -1,24 +1,15 @@
-#### RUN ESD test on each genotype in genotype colum, will test up to 10 outliers.
-#### Removes greatest number of outliers where test statistic > crtitical value(0.05) below genotype.
-#### Outputs csv with outliers replaced as NA values
-#### Modify where <THIS_STYLE_IS_PRESENT>
-### Last update MJL 12.16.22
-
 library("ggplot2")
 library("ggthemes")
 library("EnvStats")
 library("viridis")
 library("tidyverse")
 
-setwd(<YOUR_PATH>)
-df_data <- read.csv(<YOUR_SONG_DATA_CSV>, header=T, as.is=T)
+df_data <- read.csv('<YOUR_DATA.csv>', header=T, as.is=T)
 
-#For ESD test, adjust as desired
 alpha = 0.05
 lam = c(1:10)
 R = c(1:10)
 
-#requires as a genotype column and first three columns as non-data columns (ex. genotype,population,chamber)
 genos <- as.vector(unique(df_data$genotype))
 phenos <- colnames(df_data[4:length(df_data)])
 
@@ -30,18 +21,23 @@ get_diff <- function(x){
 #get max row possible in df
 max_row = nrow(df_data)
 
-#initialise output dataframe
+#Initialise output dataframes
 data_genotypes <- as.vector(df_data$genotype)
+data_genotypes_sub <- unique(df_data$genotype)
 df_out <- data.frame(genotype=data_genotypes)
+df_out_means <- data.frame(genotype=data_genotypes_sub, group_mean=rep(NA, length(data_genotypes_sub)))
 
-#test for outliers within each genotype for each phenotype
+
 for (calls in phenos){
   count_out <- vector(length=max_row)
   ticker = 1
+  ticker_sub = 1
+  df_out_means[calls] <- rep(NA,length(data_genotypes_sub)) #Make mean column for phenotype
   for (x in genos) {
     y <- df_data[which(df_data$genotype==x), calls]
     og_y_length <- length(y)
-    ######ONLINE CODE BLOCK###### (Lines 44-71 copied from: https://www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm)
+    ######ONLINE CODE BLOCK###### (Lines copied from: https://www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm)
+    ## Create function to compute the test statistic.
     rval = function(y){
       ares = abs(y - mean(y))/sd(y)
       df = data.frame(y, ares)
@@ -68,6 +64,7 @@ for (calls in phenos){
       lam[i] = t*(n-i) / sqrt((n-i-1+t**2)*(n-i+1))
       
     }
+    ## Print results.
     newdf = data.frame(c(1:10),R,lam)
     names(newdf)=c("No. Outliers","Test Stat.", "Critical Val.")
     #################################################
@@ -82,25 +79,26 @@ for (calls in phenos){
       }
     }
     
-    #Replace outliers if detected with NA values in dataset
-    #Find outlier index/indecies if present 
-    if (out_vec > 1)
+    #Remove outliers if detected
+    if (out_vec > 1){
+      #Find outliers 
       mean_set <- mean(y) #get mean of set
       y_diff <- unlist(lapply(y, FUN=get_diff)) #calculate distances
       y_sort <- sort(y_diff, decreasing=TRUE, index.return=TRUE)$ix[1:out_vec]#Get index of highest diffs
       y <- y[- y_sort] #remove outliers by indexed position
       out_mean <- mean(y)
-      print(out_mean,quote=FALSE)}
+      if (out_vec == 10){
+        print("10 outliers detected. Behavior/Genotype:")
+        print(calls, quote=FALSE)
+        print(x, quote=FALSE)}}
     else if (out_vec == 1){
       mean_set <- mean(y)
       y_diff <- unlist(lapply(y, FUN=get_diff)) #calculate distances
       y_sort <- sort(y_diff, decreasing=TRUE, index.return=TRUE)$ix[1] #Get index of highest diffs
       y <- y[-y_sort] #remove outliers by indexed position
-      out_mean <- mean(y)
-      print(out_mean,quote=FALSE)} 
+      out_mean <- mean(y)}
     else {
-      out_mean <- mean(y)
-      print(out_mean,quote=FALSE)}
+      out_mean <- mean(y)}
     
     # Add values to output vector
     y <- c(y, rep(NA, og_y_length - length(y)))
@@ -108,8 +106,11 @@ for (calls in phenos){
       count_out[ticker] <- d
       ticker = ticker + 1
     }
+    df_out_means[ticker_sub,calls] <- out_mean #Output mean for each unique genotype
+    ticker_sub = ticker_sub + 1
   }
-  df_out[calls] <- count_out #add corrected phenotype column to output df
+  df_out[calls] <- count_out #add data to output dataframe with outliers replaced as NA values.
 }
 
-write.csv(df_out, row.names=False, file=<YOUR_OUTFILE>) #output df to cwd
+write.csv(df_out, row.names=FALSE, file='<YOUR_FILE>')
+write.csv(df_out_means, row.names=FALSE, file='<YOUR_FILE>')
