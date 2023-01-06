@@ -36,7 +36,7 @@ for (calls in phenos){
   for (x in genos) {
     y <- df_data[which(df_data$genotype==x), calls]
     og_y_length <- length(y)
-    ######ONLINE CODE BLOCK###### (Lines copied from: https://www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm)
+    ######ONLINE CODE BLOCK###### (Lines 40-70 copied from: https://www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm)
     ## Create function to compute the test statistic.
     rval = function(y){
       ares = abs(y - mean(y))/sd(y)
