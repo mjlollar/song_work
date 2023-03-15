@@ -1,4 +1,8 @@
-This repository includes some personal scripts and some local (modified for paths/software versions etc) scripts modified from members of the Stern Lab [1] and Ben Arthur[1,2]. Using to generate personal datasets for D.melanogaster song.
+# Description
+
+This repository includes some personal scripts and some local (modified for paths/software versions etc) scripts modified from members of the Stern Lab [1] and Ben Arthur[1,2]. Scripts here are currently being used to generate personal datasets for D.melanogaster song.
+
+## Citations
 
 [1] Janelia Farm Research Campus, Ashburn, VA 20147
 [2] BJ Arthur, Y Ding, M Sosale, F Khalif, E Kim, P Waddell, S Turaga, DL Stern (2021)
