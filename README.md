@@ -1,6 +1,6 @@
 # Description
 
-This repository includes some scripts I am using to analyze *D. melanogaster* male courtship song. Detailed information to come (latest update: 03/17/2023)
+This repository includes some scripts I am using to analyze/plot *D. melanogaster* male courtship song, used in Lollar et al. (2025). Detailed information to come (latest update: 03/17/2023)
 
 Locally adapted scripts modified from Ben Arthur[1,2] include: classify_auto.sh, configuration.pysh. 
 
